@@ -29,54 +29,56 @@ use App\Http\Controllers\Admin\SupplierController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware(['auth'])->group(function(){
-    Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
-    Route::get('',[DashboardController::class,'Index']);
-    Route::get('notification',[NotificationController::class,'markAsRead'])->name('mark-as-read');
-    Route::get('notification-read',[NotificationController::class,'read'])->name('read');
-    Route::get('profile',[UserController::class,'profile'])->name('profile');
-    Route::post('profile/{user}',[UserController::class,'updateProfile'])->name('profile.update');
-    Route::put('profile/update-password/{user}',[UserController::class,'updatePassword'])->name('update-password');
-    Route::post('logout',[LogoutController::class,'index'])->name('logout');
 
-    Route::resource('users',UserController::class);
-    Route::resource('permissions',PermissionController::class)->only(['index','store','destroy']);
-    Route::put('permission',[PermissionController::class,'update'])->name('permissions.update');
-    Route::resource('roles',RoleController::class);
-    Route::resource('suppliers',SupplierController::class);
-    Route::resource('categories',CategoryController::class)->only(['index','store','destroy']);
-    Route::put('categories',[CategoryController::class,'update'])->name('categories.update');
-    Route::resource('purchases',PurchaseController::class)->except('show');
-    Route::get('purchases/reports',[PurchaseController::class,'reports'])->name('purchases.report');
-    Route::post('purchases/reports',[PurchaseController::class,'generateReport']);
-    Route::resource('products',ProductController::class)->except('show');
-    Route::get('products/outstock',[ProductController::class,'outstock'])->name('outstock');
-    Route::get('products/expired',[ProductController::class,'expired'])->name('expired');
-    Route::resource('sales',SaleController::class)->except('show');
-    Route::get('sales/reports',[SaleController::class,'reports'])->name('sales.report');
-    Route::post('sales/reports',[SaleController::class,'generateReport']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('', [DashboardController::class, 'Index']);
+    Route::get('notification', [NotificationController::class, 'markAsRead'])->name('mark-as-read');
+    Route::get('notification-read', [NotificationController::class, 'read'])->name('read');
+    Route::get('profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('profile/{user}', [UserController::class, 'updateProfile'])->name('profile.update');
+    Route::put('profile/update-password/{user}', [UserController::class, 'updatePassword'])->name('update-password');
+    Route::post('logout', [LogoutController::class, 'index'])->name('logout');
 
-    Route::get('backup', [BackupController::class,'index'])->name('backup.index');
-    Route::put('backup/create', [BackupController::class,'create'])->name('backup.store');
-    Route::get('backup/download/{file_name?}', [BackupController::class,'download'])->name('backup.download');
-    Route::delete('backup/delete/{file_name?}', [BackupController::class,'destroy'])->where('file_name', '(.*)')->name('backup.destroy');
+    Route::resource('users', UserController::class);
+    Route::resource('permissions', PermissionController::class)->only(['index', 'store', 'destroy']);
+    Route::put('permission', [PermissionController::class, 'update'])->name('permissions.update');
+    Route::resource('roles', RoleController::class);
+    Route::resource('suppliers', SupplierController::class)->only(['index', 'store', 'destroy']);
+    Route::put('suppliers', [SupplierController::class, 'update'])->name('suppliers.update');
+    Route::resource('categories', CategoryController::class)->only(['index', 'store', 'destroy']);
+    Route::put('categories', [CategoryController::class, 'update'])->name('categories.update');
+    Route::resource('purchases', PurchaseController::class)->except('show');
+    Route::get('purchases/reports', [PurchaseController::class, 'reports'])->name('purchases.report');
+    Route::post('purchases/reports', [PurchaseController::class, 'generateReport']);
+    Route::resource('products', ProductController::class)->except('show');
+    Route::get('products/outstock', [ProductController::class, 'outstock'])->name('outstock');
+    Route::get('products/expired', [ProductController::class, 'expired'])->name('expired');
+    Route::resource('sales', SaleController::class)->except('show');
+    Route::get('sales/reports', [SaleController::class, 'reports'])->name('sales.report');
+    Route::post('sales/reports', [SaleController::class, 'generateReport']);
 
-    Route::get('settings',[SettingController::class,'index'])->name('settings');
+    Route::get('backup', [BackupController::class, 'index'])->name('backup.index');
+    Route::put('backup/create', [BackupController::class, 'create'])->name('backup.store');
+    Route::get('backup/download/{file_name?}', [BackupController::class, 'download'])->name('backup.download');
+    Route::delete('backup/delete/{file_name?}', [BackupController::class, 'destroy'])->where('file_name', '(.*)')->name('backup.destroy');
+
+    Route::get('settings', [SettingController::class, 'index'])->name('settings');
 });
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('',function(){
+    Route::get('', function () {
         return redirect()->route('dashboard');
     });
 
-    Route::get('login',[LoginController::class,'index'])->name('login');
-    Route::post('login',[LoginController::class,'login']);
+    Route::get('login', [LoginController::class, 'index'])->name('login');
+    Route::post('login', [LoginController::class, 'login']);
 
-    Route::get('register',[RegisterController::class,'index'])->name('register');
-    Route::post('register',[RegisterController::class,'store']);
+    Route::get('register', [RegisterController::class, 'index'])->name('register');
+    Route::post('register', [RegisterController::class, 'store']);
 
-    Route::get('forgot-password',[ForgotPasswordController::class,'index'])->name('password.request');
-    Route::post('forgot-password',[ForgotPasswordController::class,'requestEmail']);
-    Route::get('reset-password/{token}',[ResetPasswordController::class,'index'])->name('password.reset');
-    Route::post('reset-password',[ResetPasswordController::class,'resetPassword'])->name('password.update');
+    Route::get('forgot-password', [ForgotPasswordController::class, 'index'])->name('password.request');
+    Route::post('forgot-password', [ForgotPasswordController::class, 'requestEmail']);
+    Route::get('reset-password/{token}', [ResetPasswordController::class, 'index'])->name('password.reset');
+    Route::post('reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 });

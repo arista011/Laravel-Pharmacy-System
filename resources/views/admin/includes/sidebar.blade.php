@@ -2,21 +2,15 @@
 <div class="sidebar" id="sidebar">
 	<div class="sidebar-inner slimscroll">
 		<div id="sidebar-menu" class="sidebar-menu">
-			
+
 			<ul>
-				<li class="menu-title"> 
+				<li class="menu-title">
 					<span>Main</span>
 				</li>
-				<li class="{{ route_is('dashboard') ? 'active' : '' }}"> 
+				<li class="{{ route_is('dashboard') ? 'active' : '' }}">
 					<a href="{{route('dashboard')}}"><i class="fe fe-home"></i> <span>Dashboard</span></a>
 				</li>
-				
-				@can('view-category')
-				<li class="{{ route_is('categories.*') ? 'active' : '' }}"> 
-					<a href="{{route('categories.index')}}"><i class="fe fe-layout"></i> <span>Categories</span></a>
-				</li>
-				@endcan
-				
+
 				@can('view-products')
 				<li class="submenu">
 					<a href="#"><i class="fe fe-document"></i> <span> Products</span> <span class="menu-arrow"></span></a>
@@ -28,10 +22,10 @@
 					</ul>
 				</li>
 				@endcan
-				
+
 				@can('view-purchase')
 				<li class="submenu">
-					<a href="#"><i class="fe fe-star-o"></i> <span> Purchase</span> <span class="menu-arrow"></span></a>
+					<a href="#"><i class="fe fe-layout"></i> <span> Purchase</span> <span class="menu-arrow"></span></a>
 					<ul style="display: none;">
 						<li><a class="{{ route_is('purchases.*') ? 'active' : '' }}" href="{{route('purchases.index')}}">Purchase</a></li>
 						@can('create-purchase')
@@ -51,16 +45,18 @@
 					</ul>
 				</li>
 				@endcan
-				
+
 				@can('view-supplier')
 				<li class="submenu">
-					<a href="#"><i class="fe fe-user"></i> <span> Supplier</span> <span class="menu-arrow"></span></a>
+					<a href="#"><i class="fe fe-star-o"></i> <span> Master</span> <span class="menu-arrow"></span></a>
 					<ul style="display: none;">
-						<li><a class="{{ route_is('suppliers.*') ? 'active' : '' }}" href="{{route('suppliers.index')}}">Supplier</a></li>
-						@can('create-supplier')<li><a class="{{ route_is('suppliers.create') ? 'active' : '' }}" href="{{route('suppliers.create')}}">Add Supplier</a></li>@endcan
+						<li><a class="{{ route_is('suppliers.*') ? 'active' : '' }}" href="{{route('suppliers.index')}}">Master Supplier</a></li>
+						@can('view-category')<li><a class="{{route('categories.index') ? 'active': ''}}" href="{{route('categories.index')}}">Master Categories</a></li>@endcan
 					</ul>
 				</li>
 				@endcan
+
+
 
 				@can('view-reports')
 				<li class="submenu">
@@ -83,26 +79,26 @@
 						<li><a class="{{ route_is('roles.*') ? 'active' : '' }}" href="{{route('roles.index')}}">Roles</a></li>
 						@endcan
 					</ul>
-				</li>					
+				</li>
 				@endcan
 
 				@can('view-users')
-				<li class="{{ route_is('users.*') ? 'active' : '' }}"> 
+				<li class="{{ route_is('users.*') ? 'active' : '' }}">
 					<a href="{{route('users.index')}}"><i class="fe fe-users"></i> <span>Users</span></a>
 				</li>
 				@endcan
-				
-				<li class="{{ route_is('profile') ? 'active' : '' }}"> 
+
+				<li class="{{ route_is('profile') ? 'active' : '' }}">
 					<a href="{{route('profile')}}"><i class="fe fe-user-plus"></i> <span>Profile</span></a>
 				</li>
-				<li class="{{ route_is('backup.index') ? 'active' : '' }}"> 
+				<li class="{{ route_is('backup.index') ? 'active' : '' }}">
 					<a href="{{route('backup.index')}}"><i class="material-icons">backup</i> <span>Backups</span></a>
 				</li>
 				@can('view-settings')
-				<li class="{{ route_is('settings') ? 'active' : '' }}"> 
+				<li class="{{ route_is('settings') ? 'active' : '' }}">
 					<a href="{{route('settings')}}">
 						<i class="material-icons">settings</i>
-						 <span> Settings</span>
+						<span> Settings</span>
 					</a>
 				</li>
 				@endcan
